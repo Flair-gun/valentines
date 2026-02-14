@@ -81,15 +81,14 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
-const container = document.querySelector(".buttons");
 
-// Set initial position in pixels
+// Set initial position anywhere on the screen
 noBtn.style.position = "absolute";
-noBtn.style.left = "50px";
-noBtn.style.top = "50px";
+noBtn.style.left = "100px";
+noBtn.style.top = "100px";
 
-let targetX = 50;
-let targetY = 50;
+let targetX = 100;
+let targetY = 100;
 
 document.addEventListener("mousemove", function(e) {
     const noRect = noBtn.getBoundingClientRect();
@@ -100,9 +99,9 @@ document.addEventListener("mousemove", function(e) {
 
     if (distance < 100) {
         const padding = 10;
-        // Move inside container
-        targetX = Math.random() * (container.clientWidth - noBtn.offsetWidth - padding * 2) + padding;
-        targetY = Math.random() * (container.clientHeight - noBtn.offsetHeight - padding * 2) + padding;
+        // Move anywhere in viewport
+        targetX = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+        targetY = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
     }
 });
 
@@ -114,7 +113,7 @@ function animateNoBtn() {
     const dx = targetX - currentX;
     const dy = targetY - currentY;
 
-    noBtn.style.left = currentX + dx * 0.2 + "px"; // speed factor
+    noBtn.style.left = currentX + dx * 0.2 + "px";
     noBtn.style.top = currentY + dy * 0.2 + "px";
 
     requestAnimationFrame(animateNoBtn);
