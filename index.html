@@ -81,41 +81,41 @@
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
+const container = document.querySelector(".buttons");
 
 // Set initial position in pixels
 noBtn.style.position = "absolute";
-noBtn.style.left = "200px";
-noBtn.style.top = "200px";
+noBtn.style.left = "50px";
+noBtn.style.top = "50px";
 
-let targetX = parseFloat(noBtn.style.left);
-let targetY = parseFloat(noBtn.style.top);
+let targetX = 50;
+let targetY = 50;
 
 document.addEventListener("mousemove", function(e) {
-    const rect = noBtn.getBoundingClientRect();
+    const noRect = noBtn.getBoundingClientRect();
     const distance = Math.hypot(
-        e.clientX - (rect.left + rect.width / 2),
-        e.clientY - (rect.top + rect.height / 2)
+        e.clientX - (noRect.left + noRect.width / 2),
+        e.clientY - (noRect.top + noRect.height / 2)
     );
 
     if (distance < 100) {
-        const padding = 20;
-        // Ensure button stays fully in viewport
-        targetX = Math.random() * (window.innerWidth - rect.width - 2 * padding) + padding;
-        targetY = Math.random() * (window.innerHeight - rect.height - 2 * padding) + padding;
+        const padding = 10;
+        // Move inside container
+        targetX = Math.random() * (container.clientWidth - noBtn.offsetWidth - padding * 2) + padding;
+        targetY = Math.random() * (container.clientHeight - noBtn.offsetHeight - padding * 2) + padding;
     }
 });
 
 // Animate the No button smoothly toward target
 function animateNoBtn() {
-    const rect = noBtn.getBoundingClientRect();
-    const currentX = rect.left;
-    const currentY = rect.top;
+    let currentX = parseFloat(noBtn.style.left);
+    let currentY = parseFloat(noBtn.style.top);
 
     const dx = targetX - currentX;
     const dy = targetY - currentY;
 
-    noBtn.style.left = currentX + dx * 0.1 + "px";
-    noBtn.style.top = currentY + dy * 0.1 + "px";
+    noBtn.style.left = currentX + dx * 0.2 + "px"; // speed factor
+    noBtn.style.top = currentY + dy * 0.2 + "px";
 
     requestAnimationFrame(animateNoBtn);
 }
