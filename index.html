@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sameea ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background-color: #ffc0cb; /* baby pink */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Arial', sans-serif;
+        overflow: hidden;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 40px;
+    }
+
+    .buttons {
+        position: relative;
+        height: 200px;
+    }
+
+    button {
+        padding: 15px 35px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        background-color: white;
+        color: #ff69b4;
+        transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+        margin-right: 20px;
+    }
+
+    #noBtn {
+        position: absolute;
+    }
+
+    .yes-message {
+        font-size: 2rem;
+        color: white;
+        margin-top: 30px;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Will you be my Valentines, Sameea? 💖</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <div class="yes-message" id="message">
+        YAYYY ❤️ You just made me the happiest person alive!!
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+
+    // Make No button run away
+    document.addEventListener("mousemove", function(e) {
+        const rect = noBtn.getBoundingClientRect();
+        const distance = Math.hypot(
+            e.clientX - (rect.left + rect.width / 2),
+            e.clientY - (rect.top + rect.height / 2)
+        );
+
+        if (distance < 100) {
+            const newX = Math.random() * (window.innerWidth - rect.width);
+            const newY = Math.random() * (window.innerHeight - rect.height);
+            noBtn.style.left = newX + "px";
+            noBtn.style.top = newY + "px";
+        }
+    });
+
+    // Yes button click
+    yesBtn.addEventListener("click", function() {
+        message.style.display = "block";
+    });
+</script>
+
+</body>
+</html>
