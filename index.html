@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For Sameea ❤️</title>
+<meta name="theme-color" content="#ffc0cb">
 
 <style>
     body {
@@ -76,30 +78,55 @@
 </div>
 
 <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const message = document.getElementById("message");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const message = document.getElementById("message");
 
-    // Make No button run away
-    document.addEventListener("mousemove", function(e) {
-        const rect = noBtn.getBoundingClientRect();
-        const distance = Math.hypot(
-            e.clientX - (rect.left + rect.width / 2),
-            e.clientY - (rect.top + rect.height / 2)
-        );
+// Set initial position
+noBtn.style.position = "absolute";
+noBtn.style.left = "50%";
+noBtn.style.top = "50%";
 
-        if (distance < 100) {
-            const newX = Math.random() * (window.innerWidth - rect.width);
-            const newY = Math.random() * (window.innerHeight - rect.height);
-            noBtn.style.left = newX + "px";
-            noBtn.style.top = newY + "px";
-        }
-    });
+let targetX = parseFloat(noBtn.style.left);
+let targetY = parseFloat(noBtn.style.top);
 
-    // Yes button click
-    yesBtn.addEventListener("click", function() {
-        message.style.display = "block";
-    });
+document.addEventListener("mousemove", function(e) {
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width / 2),
+        e.clientY - (rect.top + rect.height / 2)
+    );
+
+    if (distance < 100) {
+        const padding = 20;
+        // Pick a new target position away from cursor
+        targetX = Math.min(Math.max(Math.random() * window.innerWidth, padding), window.innerWidth - rect.width - padding);
+        targetY = Math.min(Math.max(Math.random() * window.innerHeight, padding), window.innerHeight - rect.height - padding);
+    }
+});
+
+// Animate the No button smoothly toward target
+function animateNoBtn() {
+    const rect = noBtn.getBoundingClientRect();
+    const currentX = rect.left;
+    const currentY = rect.top;
+
+    const dx = targetX - currentX;
+    const dy = targetY - currentY;
+
+    // Move a fraction of the distance (speed)
+    noBtn.style.left = currentX + dx * 0.1 + "px";
+    noBtn.style.top = currentY + dy * 0.1 + "px";
+
+    requestAnimationFrame(animateNoBtn);
+}
+
+animateNoBtn();
+
+// Yes button click
+yesBtn.addEventListener("click", function() {
+    message.style.display = "block";
+});
 </script>
 
 </body>
