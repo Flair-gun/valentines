@@ -82,17 +82,13 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
 
-const margin = 20; // safe margin from edges
-const moveDistance = 50; // max distance the No button moves at a time
-
-// Start the No button beside the Yes button
-const yesRect = yesBtn.getBoundingClientRect();
+// Set initial position anywhere on the screen
 noBtn.style.position = "absolute";
-noBtn.style.left = yesRect.right + 20 + "px"; // 20px to the right of Yes
-noBtn.style.top = yesRect.top + "px";
+noBtn.style.left = "100px";
+noBtn.style.top = "100px";
 
-let targetX = parseFloat(noBtn.style.left);
-let targetY = parseFloat(noBtn.style.top);
+let targetX = 100;
+let targetY = 100;
 
 document.addEventListener("mousemove", function(e) {
     const noRect = noBtn.getBoundingClientRect();
@@ -102,19 +98,10 @@ document.addEventListener("mousemove", function(e) {
     );
 
     if (distance < 100) {
-        // Move only a small random distance
-        const dx = (Math.random() - 0.5) * moveDistance; // -25 to 25 px
-        const dy = (Math.random() - 0.5) * moveDistance;
-
-        // Calculate new target with margin constraints
-        targetX = Math.min(
-            window.innerWidth - noBtn.offsetWidth - margin,
-            Math.max(margin, noRect.left + dx)
-        );
-        targetY = Math.min(
-            window.innerHeight - noBtn.offsetHeight - margin,
-            Math.max(margin, noRect.top + dy)
-        );
+        const padding = 10;
+        // Move anywhere in viewport
+        targetX = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+        targetY = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
     }
 });
 
