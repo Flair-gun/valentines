@@ -82,10 +82,10 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const message = document.getElementById("message");
 
-// Set initial position
+// Set initial position in pixels
 noBtn.style.position = "absolute";
-noBtn.style.left = "50%";
-noBtn.style.top = "50%";
+noBtn.style.left = "200px";
+noBtn.style.top = "200px";
 
 let targetX = parseFloat(noBtn.style.left);
 let targetY = parseFloat(noBtn.style.top);
@@ -99,9 +99,9 @@ document.addEventListener("mousemove", function(e) {
 
     if (distance < 100) {
         const padding = 20;
-        // Pick a new target position away from cursor
-        targetX = Math.min(Math.max(Math.random() * window.innerWidth, padding), window.innerWidth - rect.width - padding);
-        targetY = Math.min(Math.max(Math.random() * window.innerHeight, padding), window.innerHeight - rect.height - padding);
+        // Ensure button stays fully in viewport
+        targetX = Math.random() * (window.innerWidth - rect.width - 2 * padding) + padding;
+        targetY = Math.random() * (window.innerHeight - rect.height - 2 * padding) + padding;
     }
 });
 
@@ -114,7 +114,6 @@ function animateNoBtn() {
     const dx = targetX - currentX;
     const dy = targetY - currentY;
 
-    // Move a fraction of the distance (speed)
     noBtn.style.left = currentX + dx * 0.1 + "px";
     noBtn.style.top = currentY + dy * 0.1 + "px";
 
